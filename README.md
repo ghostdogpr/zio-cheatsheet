@@ -3,30 +3,39 @@
 - This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0-RC4.
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
 
+## Aliases
+
+| Alias         | Full Form                |
+| ------------- | ------------------------ |
+| `UIO[A]`      | `ZIO[Any, Nothing, A]`   |
+| `IO[E, A]`    | `ZIO[Any, E, A]`         |
+| `Task[A]`     | `ZIO[Any, Throwable, A]` |
+| `TaskR[R, A]` | `ZIO[R, Throwable, A]`   |
+
 ## Creating effects
 
-| Name                                  | Given                                                        | To                     |
-| --------------------------------------- | ------------------------------------------------------------ | ---------------------- |
-| IO.succeed                              | `A`                                                          | `IO[Nothing, A]`       |
-| IO.succeedLazy                          | `=> A`                                                       | `IO[Nothing, A]`       |
-| IO.fail                                 | `E`                                                          | `IO[E, Nothing]`       |
-| IO.interrupt                            |                                                              | `IO[Nothing, Nothing]` |
-| IO.die                                  | `Throwable`                                                  | `IO[Nothing, Nothing]` |
-| IO.effect <br> IO.apply <br> Task.apply | `=> A`                                                       | `IO[Throwable, A]`     |
-| IO.effectTotal <br> UIO.apply           | `=> A`                                                       | `IO[Nothing, A]`       |
-| IO.effectAsync                          | `((IO[E, A] => Unit) => Unit)`                               | `IO[E, A]`             |
-| IO.fromEither                           | `Either[E, A]`                                               | `IO[E, A]`             |
-| IO.fromFiber                            | `Fiber[E, A]`                                                | `IO[E, A]`             |
-| IO.fromFuture                           | `ExecutionContext => Future[A]`                              | `IO[Throwable, A]`     |
-| IO.fromOption                           | `Option[A]`                                                  | `IO[Unit, A]`          |
-| IO.fromTry                              | `Try[A]`                                                     | `IO[Throwable, A]`     |
+| Name                                    | Given                                                                                   | To                     |
+| --------------------------------------- | --------------------------------------------------------------------------------------- | ---------------------- |
+| IO.succeed                              | `A`                                                                                     | `IO[Nothing, A]`       |
+| IO.succeedLazy                          | `=> A`                                                                                  | `IO[Nothing, A]`       |
+| IO.fail                                 | `E`                                                                                     | `IO[E, Nothing]`       |
+| IO.interrupt                            |                                                                                         | `IO[Nothing, Nothing]` |
+| IO.die                                  | `Throwable`                                                                             | `IO[Nothing, Nothing]` |
+| IO.effect <br> IO.apply <br> Task.apply | `=> A`                                                                                  | `IO[Throwable, A]`     |
+| IO.effectTotal <br> UIO.apply           | `=> A`                                                                                  | `IO[Nothing, A]`       |
+| IO.effectAsync                          | `((IO[E, A] => Unit) => Unit)`                                                          | `IO[E, A]`             |
+| IO.fromEither                           | `Either[E, A]`                                                                          | `IO[E, A]`             |
+| IO.fromFiber                            | `Fiber[E, A]`                                                                           | `IO[E, A]`             |
+| IO.fromFuture                           | `ExecutionContext => Future[A]`                                                         | `IO[Throwable, A]`     |
+| IO.fromOption                           | `Option[A]`                                                                             | `IO[Unit, A]`          |
+| IO.fromTry                              | `Try[A]`                                                                                | `IO[Throwable, A]`     |
 | IO.bracket                              | `IO[E, A]` (acquire) <br> `A => IO[Nothing, Unit]` (release) <br> `A => IO[E, B]` (use) | `IO[E, B]`             |
-| IO.when                                 | `Boolean` <br> `IO[E, _]`                                    | `IO[E, Unit]`          |
-| IO.whenM                                | `IO[E, Boolean]` <br> `IO[E, _]`                             | `IO[E, Unit]`          |
+| IO.when                                 | `Boolean` <br> `IO[E, _]`                                                               | `IO[E, Unit]`          |
+| IO.whenM                                | `IO[E, Boolean]` <br> `IO[E, _]`                                                        | `IO[E, Unit]`          |
 
 ## Transforming effects
 
-| Name          | From                    | Given                 | To                      |
+| Name            | From                    | Given                 | To                      |
 | --------------- | ----------------------- | --------------------- | ----------------------- |
 | map             | `IO[E, A]`              | `A => B`              | `IO[E, B]`              |
 | const           | `IO[E, A]`              | `B`                   | `IO[E, B]`              |
@@ -44,7 +53,7 @@
 
 ## Recover from errors
 
-| Name        | From       | Given                                | To                          |
+| Name          | From       | Given                                | To                          |
 | ------------- | ---------- | ------------------------------------ | --------------------------- |
 | either        | `IO[E, A]` |                                      | `IO[Nothing, Either[E, A]]` |
 | option        | `IO[E, A]` |                                      | `IO[Nothing, Option[A]]`    |
@@ -59,7 +68,7 @@
 
 ## Combining effects + parallelism
 
-| Name             | From       | Given                                            | To                               |
+| Name               | From       | Given                                            | To                               |
 | ------------------ | ---------- | ------------------------------------------------ | -------------------------------- |
 | IO.foldLeft        |            | `Iterable[A]` <br> `S` <br> `(S, A) => IO[E, S]` | `IO[E, S]`                       |
 | IO.foreach         |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
@@ -79,7 +88,7 @@
 
 ## Finalizers
 
-| Name        | From       | Given                      | To         |
+| Name          | From       | Given                      | To         |
 | ------------- | ---------- | -------------------------- | ---------- |
 | ensuring      | `IO[E, A]` | `UIO[_]`                   | `IO[E, A]` |
 | onError       | `IO[E, A]` | `Cause[E] => UIO[_]`       | `IO[E, A]` |
@@ -88,7 +97,7 @@
 
 ## Timing
 
-| Name   | From       | Given            | To                          |
+| Name     | From       | Given            | To                          |
 | -------- | ---------- | ---------------- | --------------------------- |
 | IO.never |            |                  | `IO[Nothing, Nothing]`      |
 | IO.sleep |            | `Duration`       | `ZIO[Clock, Nothing, Unit]` |
