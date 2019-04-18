@@ -1,7 +1,7 @@
 # ZIO Cheat Sheet
 
 - This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0-RC4.
-- For simplicity, ZIO environment has been omitted but all the following functions also work in the form `ZIO[R, E, A]`.
+- For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
 
 ## Creating effects
 
