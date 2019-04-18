@@ -20,7 +20,7 @@
 | IO.fromFuture                           | `ExecutionContext => Future[A]`                              | `IO[Throwable, A]`     |
 | IO.fromOption                           | `Option[A]`                                                  | `IO[Unit, A]`          |
 | IO.fromTry                              | `Try[A]`                                                     | `IO[Throwable, A]`     |
-| IO.bracket                              | `IO[E, A` <br> `A => IO[Nothing, Unit]` <br> `A => IO[E, B]` | `IO[E, B]`             |
+| IO.bracket                              | `IO[E, A]` (acquire) <br> `A => IO[Nothing, Unit]` (release) <br> `A => IO[E, B]` (use) | `IO[E, B]`             |
 | IO.when                                 | `Boolean` <br> `IO[E, _]`                                    | `IO[E, Unit]`          |
 | IO.whenM                                | `IO[E, Boolean]` <br> `IO[E, _]`                             | `IO[E, Unit]`          |
 
