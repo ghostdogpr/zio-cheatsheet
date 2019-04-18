@@ -1,8 +1,11 @@
 # ZIO Cheat Sheet
 
+- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0-RC4.
+- For simplicity, ZIO environment has been omitted but all the following functions also work in the form `ZIO[R, E, A]`.
+
 ## Creating effects
 
-| Method                                  | Given                                                        | To                     |
+| Name                                  | Given                                                        | To                     |
 | --------------------------------------- | ------------------------------------------------------------ | ---------------------- |
 | IO.succeed                              | `A`                                                          | `IO[Nothing, A]`       |
 | IO.succeedLazy                          | `=> A`                                                       | `IO[Nothing, A]`       |
@@ -23,7 +26,7 @@
 
 ## Transforming effects
 
-| Method          | From                    | Given                 | To                      |
+| Name          | From                    | Given                 | To                      |
 | --------------- | ----------------------- | --------------------- | ----------------------- |
 | map             | `IO[E, A]`              | `A => B`              | `IO[E, B]`              |
 | const           | `IO[E, A]`              | `B`                   | `IO[E, B]`              |
@@ -41,7 +44,7 @@
 
 ## Recover from errors
 
-| Method        | From       | Given                                | To                          |
+| Name        | From       | Given                                | To                          |
 | ------------- | ---------- | ------------------------------------ | --------------------------- |
 | either        | `IO[E, A]` |                                      | `IO[Nothing, Either[E, A]]` |
 | option        | `IO[E, A]` |                                      | `IO[Nothing, Option[A]]`    |
@@ -56,7 +59,7 @@
 
 ## Combining effects + parallelism
 
-| Method             | From       | Given                                            | To                               |
+| Name             | From       | Given                                            | To                               |
 | ------------------ | ---------- | ------------------------------------------------ | -------------------------------- |
 | IO.foldLeft        |            | `Iterable[A]` <br> `S` <br> `(S, A) => IO[E, S]` | `IO[E, S]`                       |
 | IO.foreach         |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
@@ -76,7 +79,7 @@
 
 ## Finalizers
 
-| Method        | From       | Given                      | To         |
+| Name        | From       | Given                      | To         |
 | ------------- | ---------- | -------------------------- | ---------- |
 | ensuring      | `IO[E, A]` | `UIO[_]`                   | `IO[E, A]` |
 | onError       | `IO[E, A]` | `Cause[E] => UIO[_]`       | `IO[E, A]` |
@@ -85,7 +88,7 @@
 
 ## Timing
 
-| Method   | From       | Given            | To                          |
+| Name   | From       | Given            | To                          |
 | -------- | ---------- | ---------------- | --------------------------- |
 | IO.never |            |                  | `IO[Nothing, Nothing]`      |
 | IO.sleep |            | `Duration`       | `ZIO[Clock, Nothing, Unit]` |
