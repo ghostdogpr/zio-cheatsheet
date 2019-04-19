@@ -48,7 +48,7 @@
 | sandbox         | `IO[E, A]`              |                       | `IO[Cause[E], A]`       |
 | flip            | `IO[E, A]`              |                       | `IO[A, E]`              |
 | absolve         | `IO[E, Either[E, A]]`   |                       | `IO[E, A]`              |
-| get             | `IO[Nothing, Option[A]` |                       | `IO[Unit, A]`           |
+| get             | `IO[Nothing, Option[A]]`|                       | `IO[Unit, A]`           |
 | toFuture        | `IO[Throwable, A]`      |                       | `IO[Nothing, Future[A]` |
 
 ## Recover from errors
