@@ -1,6 +1,6 @@
 # ZIO Cheat Sheet
 
-- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0-RC5.
+- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0.0-RC9.
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
 
 ## Aliases
@@ -62,6 +62,7 @@
 | orElseEither  | `IO[E, A]` | `IO[E2, B]`                          | `IO[E2, Either[A, B]]`      |
 | fold          | `IO[E, A]` | `E => B`<br>`A => B`                 | `IO[Nothing, B]`            |
 | foldM         | `IO[E, A]` | `E => IO[E2, B]`<br>`A => IO[E2, B]` | `IO[E2, B]`                 |
+| foldCauseM    | `IO[E, A]` | `Cause[E] => IO[E2, B]`<br>`A => IO[E2, B]` | `IO[E2, B]`                 |
 | catchAll      | `IO[E, A]` | `E => IO[E2, A1]`                    | `IO[E2, A1]`                |
 | catchSome     | `IO[E, A]` | `PartialFunction[E, IO[E1, A1]]`     | `IO[E1, A1]`                |
 | retry         | `IO[E, A]` | `Schedule[E1, S]`                    | `ZIO[Clock, E1, A]`         |
