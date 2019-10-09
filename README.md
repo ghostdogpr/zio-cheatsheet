@@ -82,6 +82,16 @@
 | retry         | `IO[E, A]` | `Schedule[E1, S]`                           | `ZIO[Clock, E1, A]`         |
 | eventually    | `IO[E, A]` |                                             | `IO[Nothing, A]`            |
 
+## Terminate fiber with errors
+
+| Name              | From               | Given                                           | To                          |
+| ----------------- | ------------------ | ----------------------------------------------- | --------------------------- |
+| orDie             | `IO[Throwable, A]` |                                                 | `IO[Nothing, A]`            |
+| orDieWith         | `IO[E, A]`         | `E => Throwable`                                | `IO[Nothing, A]`            |
+| refineOrDie       | `IO[Throwable, A]` | `PartialFunction[Throwable, E1]`                | `IO[E1, A]`                 |
+| refineOrDieWith   | `IO[E, A]`         | `PartialFunction[E, E1]`<br> `E => Throwable`   | `IO[E1, A]`                 |
+
+
 ## Combining effects + parallelism
 
 | Name               | From       | Given                                            | To                               |
