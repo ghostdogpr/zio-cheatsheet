@@ -1,6 +1,6 @@
 # ZIO Cheat Sheet
 
-- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0.0-RC17.
+- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0.0-RC18.
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
 
 ## Aliases
@@ -45,7 +45,7 @@
 | --------------- | ------------------------ | ------------------------------------ | ------------------------ |
 | map             | `IO[E, A]`               | `A => B`                             | `IO[E, B]`               |
 | as              | `IO[E, A]`               | `B`                                  | `IO[E, B]`               |
-| asError         | `IO[E, A]`               | `E2`                                 | `IO[E2, A]`              |
+| orElseFail      | `IO[E, A]`               | `E2`                                 | `IO[E2, A]`              |
 | unit            | `IO[E, A]`               |                                      | `IO[E, Unit]`            |
 | `>>=` (flatmap) | `IO[E, A]`               | `A => IO[E1, B]`                     | `IO[E1, B]`              |
 | flatten         | `IO[E, IO[E1, A]]`       |                                      | `IO[E1, A]`              |
