@@ -52,7 +52,7 @@
 | bimap           | `IO[E, A]`               | `E => E2`<br>`A => B`                | `IO[E2, B]`              |
 | mapError        | `IO[E, A]`               | `E => E2`                            | `IO[E2, A]`              |
 | mapErrorCause   | `IO[E, A]`               | `Cause[E] => Cause[E2]`              | `IO[E2, A]`              |
-| flatmapError    | `IO[E, A]`               | `IO[Nothing, E2]`                    | `IO[E2, A]`              |
+| flatMapError    | `IO[E, A]`               | `E => IO[Nothing, E2]`               | `IO[E2, A]`              |
 | sandbox         | `IO[E, A]`               |                                      | `IO[Cause[E], A]`        |
 | flip            | `IO[E, A]`               |                                      | `IO[A, E]`               |
 | tap             | `IO[E, A]`               | `A => IO[E1, _]`                     | `IO[E1, A]`              |
