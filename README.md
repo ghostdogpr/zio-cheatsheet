@@ -49,7 +49,7 @@
 | unit            | `IO[E, A]`               |                                      | `IO[E, Unit]`            |
 | `>>=` (flatmap) | `IO[E, A]`               | `A => IO[E1, B]`                     | `IO[E1, B]`              |
 | flatten         | `IO[E, IO[E1, A]]`       |                                      | `IO[E1, A]`              |
-| bimap           | `IO[E, A]`               | `E => E2`<br>`A => B`                | `IO[E2, B]`              |
+| mapBoth (bimap) | `IO[E, A]`               | `E => E2`<br>`A => B`                | `IO[E2, B]`              |
 | mapError        | `IO[E, A]`               | `E => E2`                            | `IO[E2, A]`              |
 | mapErrorCause   | `IO[E, A]`               | `Cause[E] => Cause[E2]`              | `IO[E2, A]`              |
 | flatMapError    | `IO[E, A]`               | `E => IO[Nothing, E2]`               | `IO[E2, A]`              |
