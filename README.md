@@ -41,27 +41,32 @@
 
 ## Transforming effects
 
-| Name            | From                     | Given                                | To                       |
-| --------------- | ------------------------ | ------------------------------------ | ------------------------ |
-| map             | `IO[E, A]`               | `A => B`                             | `IO[E, B]`               |
-| as              | `IO[E, A]`               | `B`                                  | `IO[E, B]`               |
-| orElseFail      | `IO[E, A]`               | `E2`                                 | `IO[E2, A]`              |
-| unit            | `IO[E, A]`               |                                      | `IO[E, Unit]`            |
-| `>>=` (flatmap) | `IO[E, A]`               | `A => IO[E1, B]`                     | `IO[E1, B]`              |
-| flatten         | `IO[E, IO[E1, A]]`       |                                      | `IO[E1, A]`              |
-| mapBoth (bimap) | `IO[E, A]`               | `E => E2`<br>`A => B`                | `IO[E2, B]`              |
-| mapError        | `IO[E, A]`               | `E => E2`                            | `IO[E2, A]`              |
-| mapErrorCause   | `IO[E, A]`               | `Cause[E] => Cause[E2]`              | `IO[E2, A]`              |
-| flatMapError    | `IO[E, A]`               | `E => IO[Nothing, E2]`               | `IO[E2, A]`              |
-| sandbox         | `IO[E, A]`               |                                      | `IO[Cause[E], A]`        |
-| flip            | `IO[E, A]`               |                                      | `IO[A, E]`               |
-| tap             | `IO[E, A]`               | `A => IO[E1, _]`                     | `IO[E1, A]`              |
-| tapBoth         | `IO[E, A]`               | `A => IO[E1, _]`<br>`E => IO[E1, _]` | `IO[E1, A]`              |
-| tapError        | `IO[E, A]`               | `E => IO[E1, _]`                     | `IO[E1, A]`              |
-| absolve         | `IO[E, Either[E, A]]`    |                                      | `IO[E, A]`               |
-| get             | `IO[Nothing, Option[A]]` |                                      | `IO[Unit, A]`            |
-| head            | `IO[E, List[A]]`         |                                      | `IO[Option[E], A]`       |
-| toFuture        | `IO[Throwable, A]`       |                                      | `IO[Nothing, Future[A]]` |
+| Name               | From                     | Given                                   | To                       |
+| ------------------ | ------------------------ | --------------------------------------- | ------------------------ |
+| map                | `IO[E, A]`               | `A => B`                                | `IO[E, B]`               |
+| as                 | `IO[E, A]`               | `B`                                     | `IO[E, B]`               |
+| orElseFail         | `IO[E, A]`               | `E2`                                    | `IO[E2, A]`              |
+| unit               | `IO[E, A]`               |                                         | `IO[E, Unit]`            |
+| `>>=` (flatmap)    | `IO[E, A]`               | `A => IO[E1, B]`                        | `IO[E1, B]`              |
+| flatten            | `IO[E, IO[E1, A]]`       |                                         | `IO[E1, A]`              |
+| mapBoth (bimap)    | `IO[E, A]`               | `E => E2`<br>`A => B`                   | `IO[E2, B]`              |
+| mapError           | `IO[E, A]`               | `E => E2`                               | `IO[E2, A]`              |
+| mapErrorCause      | `IO[E, A]`               | `Cause[E] => Cause[E2]`                 | `IO[E2, A]`              |
+| flatMapError       | `IO[E, A]`               | `E => IO[Nothing, E2]`                  | `IO[E2, A]`              |
+| sandbox            | `IO[E, A]`               |                                         | `IO[Cause[E], A]`        |
+| flip               | `IO[E, A]`               |                                         | `IO[A, E]`               |
+| tap                | `IO[E, A]`               | `A => IO[E1, _]`                        | `IO[E1, A]`              |
+| tapBoth            | `IO[E, A]`               | `A => IO[E1, _]`<br>`E => IO[E1, _]`    | `IO[E1, A]`              |
+| tapError           | `IO[E, A]`               | `E => IO[E1, _]`                        | `IO[E1, A]`              |
+| absolve            | `IO[E, Either[E, A]]`    |                                         | `IO[E, A]`               |
+| get                | `IO[Nothing, Option[A]]` |                                         | `IO[Unit, A]`            |
+| head               | `IO[E, List[A]]`         |                                         | `IO[Option[E], A]`       |
+| toFuture           | `IO[Throwable, A]`       |                                         | `IO[Nothing, Future[A]]` |
+| filterOrDie        | `IO[E, A]`               | `A => Boolean`<br>`Throwable`           | `IO[E, A]`               |
+| filterOrDieMessage | `IO[E, A]`               | `A => Boolean`<br>`String`              | `IO[E, A]`               |
+| filterOrElse       | `IO[E, A]`               | `A => Boolean`<br>`A => ZIO[R2, E2, B]` | `ZIO[R2, E2, B]`         |
+| filterOrFail       | `IO[E, A]`               | `A => Boolean`<br>`E2`                  | `IO[E2, A]`              |
+
 
 ## Recover from errors
 
