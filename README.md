@@ -2,6 +2,7 @@
 
 - This is based on [ZIO](https://github.com/zio/zio) 2.0.X (in particular 2.0.10).
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
+- For many functions there are several (unmentioned) related functions that are conceptually similar but differ in some detail.
 - Important ZIO types other than the functional effect type `ZIO[R, E, A]` have been left out. For example: `ZStream[R, E, A]`, `ZLayer[RIn, E, ROut]`, `Fiber[E, A]` and `Ref[A]`.
 
 ## Aliases
@@ -74,16 +75,16 @@
 | either        | `IO[E, A]` |                                             | `IO[Nothing, Either[E, A]]` |
 | option        | `IO[E, A]` |                                             | `IO[Nothing, Option[A]]`    |
 | ignore        | `IO[E, A]` |                                             | `IO[Nothing, Unit]`         |
-| run           | `IO[E, A]` |                                             | `IO[Nothing, Exit[E, A]]`   |
+| exit          | `IO[E, A]` |                                             | `IO[Nothing, Exit[E, A]]`   |
 | `<>` (orElse) | `IO[E, A]` | `IO[E2, A1]`                                | `IO[E2, A1]`                |
 | orElseEither  | `IO[E, A]` | `IO[E2, B]`                                 | `IO[E2, Either[A, B]]`      |
 | fold          | `IO[E, A]` | `E => B`<br>`A => B`                        | `IO[Nothing, B]`            |
-| foldM         | `IO[E, A]` | `E => IO[E2, B]`<br>`A => IO[E2, B]`        | `IO[E2, B]`                 |
+| foldZIO       | `IO[E, A]` | `E => IO[E2, B]`<br>`A => IO[E2, B]`        | `IO[E2, B]`                 |
 | foldCauseZIO  | `IO[E, A]` | `Cause[E] => IO[E2, B]`<br>`A => IO[E2, B]` | `IO[E2, B]`                 |
 | catchAll      | `IO[E, A]` | `E => IO[E2, A1]`                           | `IO[E2, A1]`                |
 | catchAllCause | `IO[E, A]` | `Cause[E] => IO[E2, A1]`                    | `IO[E2, A1]`                |
 | catchSome     | `IO[E, A]` | `PartialFunction[E, IO[E1, A1]]`            | `IO[E1, A1]`                |
-| retry         | `IO[E, A]` | `Schedule[E1, S]`                           | `ZIO[Clock, E1, A]`         |
+| retry         | `IO[E, A]` | `Schedule[E, S]`                            | `IO[E, A]`                  |
 | eventually    | `IO[E, A]` |                                             | `IO[Nothing, A]`            |
 
 ## Terminate fiber with errors
