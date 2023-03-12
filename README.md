@@ -98,23 +98,22 @@
 
 ## Combining effects + parallelism
 
-| Name               | From       | Given                                            | To                               |
-| ------------------ | ---------- | ------------------------------------------------ | -------------------------------- |
-| IO.foldLeft        |            | `Iterable[A]` <br> `S` <br> `(S, A) => IO[E, S]` | `IO[E, S]`                       |
-| IO.foreach         |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
-| IO.foreachPar      |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
-| IO.foreachParN     |            | `Long` <br> `Iterable[A]` <br> `A => IO[E, B]`   | `IO[E, List[B]]`                 |
-| IO.forkAll         |            | `Iterable[IO[E, A]]`                             | `IO[Nothing, Fiber[E, List[A]]]` |
-| fork               | `IO[E, A]` |                                                  | `IO[Nothing, Fiber[E, A]]`       |
-| `<*>` (zip)        | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, (A, B)]`                 |
-| `*>` (zipRight)    | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, B]`                      |
-| `<*` (zipLeft)     | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, A]`                      |
-| `<&>` (zipPar)     | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, (A, B)]`                 |
-| `&>` (zipParRight) | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, B]`                      |
-| `<&` (zipParLeft)  | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, A]`                      |
-| race               | `IO[E, A]` | `IO[E1, A1]`                                     | `IO[E1, A1]`                     |
-| raceAll            | `IO[E, A]` | `Iterable[IO[E1, A1]]`                           | `IO[E1, A1]`                     |
-| raceEither         | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, Either[A, B]]`           |
+| Name                | From       | Given                                            | To                               |
+| ------------------- | ---------- | ------------------------------------------------ | -------------------------------- |
+| ZIO.foldLeft        |            | `Iterable[A]` <br> `S` <br> `(S, A) => IO[E, S]` | `IO[E, S]`                       |
+| ZIO.foreach         |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
+| ZIO.foreachPar      |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
+| ZIO.forkAll         |            | `Iterable[IO[E, A]]`                             | `IO[Nothing, Fiber[E, List[A]]]` |
+| fork                | `IO[E, A]` |                                                  | `IO[Nothing, Fiber[E, A]]`       |
+| `<*>` (zip)         | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, (A, B)]`                 |
+| `*>` (zipRight)     | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, B]`                      |
+| `<*` (zipLeft)      | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, A]`                      |
+| `<&>` (zipPar)      | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, (A, B)]`                 |
+| `&>` (zipParRight)  | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, B]`                      |
+| `<&` (zipParLeft)   | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, A]`                      |
+| race                | `IO[E, A]` | `IO[E1, A1]`                                     | `IO[E1, A1]`                     |
+| raceAll             | `IO[E, A]` | `Iterable[IO[E1, A1]]`                           | `IO[E1, A1]`                     |
+| raceEither          | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, Either[A, B]]`           |
 
 ## Finalizers
 
