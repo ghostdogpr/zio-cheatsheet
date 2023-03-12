@@ -127,12 +127,12 @@
 
 ## Timing
 
-| Name     | From       | Given            | To                             |
-| -------- | ---------- | ---------------- | ------------------------------ |
-| IO.never |            |                  | `IO[Nothing, Nothing]`         |
-| IO.sleep |            | `Duration`       | `ZIO[Clock, Nothing, Unit]`    |
-| delay    | `IO[E, A]` | `Duration`       | `ZIO[Clock, E, A]`             |
-| timeout  | `IO[E, A]` | `Duration`       | `ZIO[Clock, E, Option[A]]`     |
-| timed    | `IO[E, A]` |                  | `ZIO[Clock, E, (Duration, A)]` |
-| forever  | `IO[E, A]` |                  | `IO[E, Nothing]`               |
-| repeat   | `IO[E, A]` | `Schedule[A, B]` | `ZIO[Clock, E, B]`             |
+| Name      | From       | Given            | To                             |
+| --------- | ---------- | ---------------- | ------------------------------ |
+| ZIO.never |            |                  | `IO[Nothing, Nothing]`         |
+| ZIO.sleep |            | `Duration`       | `IO[Nothing, Unit]`            |
+| delay     | `IO[E, A]` | `Duration`       | `IO[E, A]`                     |
+| timeout   | `IO[E, A]` | `Duration`       | `IO[E, Option[A]]`             |
+| timed     | `IO[E, A]` |                  | `IO[E, (Duration, A)]`         |
+| forever   | `IO[E, A]` |                  | `IO[E, Nothing]`               |
+| repeat    | `IO[E, A]` | `Schedule[A, B]` | `IO[E, B]`                     |
