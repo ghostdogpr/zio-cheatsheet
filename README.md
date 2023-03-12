@@ -19,11 +19,10 @@
 
 | Name                                     | Given                                                                                   | To                                |
 | ---------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
-| ZIO.succeed                              | `A`                                                                                     | `IO[Nothing, A]`                  |
-| ZIO.fail                                 | `E`                                                                                     | `IO[E, Nothing]`                  |
+| ZIO.succeed                              | `=> A`                                                                                  | `IO[Nothing, A]`                  |
+| ZIO.fail                                 | `=> E`                                                                                  | `IO[E, Nothing]`                  |
 | ZIO.die                                  | `Throwable`                                                                             | `IO[Nothing, Nothing]`            |
 | ZIO.attempt                              | `=> A`                                                                                  | `IO[Throwable, A]`                |
-| ZIO.succeed                              | `=> A`                                                                                  | `IO[Nothing, A]`                  |
 | ZIO.async                                | `((IO[E, A] => Unit) => Unit)`                                                          | `IO[E, A]`                        |
 | ZIO.fromEither                           | `Either[E, A]`                                                                          | `IO[E, A]`                        |
 | ZIO.left                                 | `A`                                                                                     | `IO[Nothing, Either[A, Nothing]]` |
@@ -48,7 +47,7 @@
 | as                 | `IO[E, A]`               | `B`                                     | `IO[E, B]`               |
 | orElseFail         | `IO[E, A]`               | `E2`                                    | `IO[E2, A]`              |
 | unit               | `IO[E, A]`               |                                         | `IO[E, Unit]`            |
-| flatmap            | `IO[E, A]`               | `A => IO[E1, B]`                        | `IO[E1, B]`              |
+| flatMap            | `IO[E, A]`               | `A => IO[E1, B]`                        | `IO[E1, B]`              |
 | flatten            | `IO[E, IO[E1, A]]`       |                                         | `IO[E1, A]`              |
 | mapBoth (bimap)    | `IO[E, A]`               | `E => E2`<br>`A => B`                   | `IO[E2, B]`              |
 | mapError           | `IO[E, A]`               | `E => E2`                               | `IO[E2, A]`              |
