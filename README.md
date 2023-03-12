@@ -79,7 +79,7 @@
 | orElseEither  | `IO[E, A]` | `IO[E2, B]`                                 | `IO[E2, Either[A, B]]`      |
 | fold          | `IO[E, A]` | `E => B`<br>`A => B`                        | `IO[Nothing, B]`            |
 | foldM         | `IO[E, A]` | `E => IO[E2, B]`<br>`A => IO[E2, B]`        | `IO[E2, B]`                 |
-| foldCauseM    | `IO[E, A]` | `Cause[E] => IO[E2, B]`<br>`A => IO[E2, B]` | `IO[E2, B]`                 |
+| foldCauseZIO  | `IO[E, A]` | `Cause[E] => IO[E2, B]`<br>`A => IO[E2, B]` | `IO[E2, B]`                 |
 | catchAll      | `IO[E, A]` | `E => IO[E2, A1]`                           | `IO[E2, A1]`                |
 | catchAllCause | `IO[E, A]` | `Cause[E] => IO[E2, A1]`                    | `IO[E2, A1]`                |
 | catchSome     | `IO[E, A]` | `PartialFunction[E, IO[E1, A1]]`            | `IO[E1, A1]`                |
