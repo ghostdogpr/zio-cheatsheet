@@ -104,7 +104,7 @@
 | ZIO.foreach         |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
 | ZIO.foreachPar      |            | `Iterable[A]` <br> `A => IO[E, B]`               | `IO[E, List[B]]`                 |
 | ZIO.forkAll         |            | `Iterable[IO[E, A]]`                             | `IO[Nothing, Fiber[E, List[A]]]` |
-| fork                | `IO[E, A]` |                                                  | `IO[Nothing, Fiber[E, A]]`       |
+| fork                | `IO[E, A]` |                                                  | `IO[Nothing, Runtime[E, A]]`     |
 | `<*>` (zip)         | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, (A, B)]`                 |
 | `*>` (zipRight)     | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, B]`                      |
 | `<*` (zipLeft)      | `IO[E, A]` | `IO[E1, B]`                                      | `IO[E1, A]`                      |
