@@ -1,7 +1,8 @@
 # ZIO Cheat Sheet
 
-- This is based on [ZIO](https://github.com/scalaz/scalaz-zio) 1.0.0.
+- This is based on [ZIO](https://github.com/zio/zio) 2.0.X (in particular 2.0.10).
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
+- Important ZIO types other than the functional effect type `ZIO[R, E, A]` have been left out. For example: `ZStream[R, E, A]`, `ZLayer[RIn, E, ROut]`, `Fiber[E, A]` and `Ref[A]`.
 
 ## Aliases
 
@@ -15,29 +16,28 @@
 
 ## Creating effects
 
-| Name                                    | Given                                                                                   | To                                |
-| --------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
-| IO.succeed                              | `A`                                                                                     | `IO[Nothing, A]`                  |
-| IO.fail                                 | `E`                                                                                     | `IO[E, Nothing]`                  |
-| IO.interrupt                            |                                                                                         | `IO[Nothing, Nothing]`            |
-| IO.die                                  | `Throwable`                                                                             | `IO[Nothing, Nothing]`            |
-| IO.effect <br> IO.apply <br> Task.apply | `=> A`                                                                                  | `IO[Throwable, A]`                |
-| IO.effectTotal <br> UIO.apply           | `=> A`                                                                                  | `IO[Nothing, A]`                  |
-| IO.effectAsync                          | `((IO[E, A] => Unit) => Unit)`                                                          | `IO[E, A]`                        |
-| IO.fromEither                           | `Either[E, A]`                                                                          | `IO[E, A]`                        |
-| IO.left                                 | `A`                                                                                     | `IO[Nothing, Either[A, Nothing]]` |
-| IO.right                                | `A`                                                                                     | `IO[Nothing, Either[Nothing, A]]` |
-| IO.fromFiber                            | `Fiber[E, A]`                                                                           | `IO[E, A]`                        |
-| IO.fromFuture                           | `ExecutionContext => Future[A]`                                                         | `IO[Throwable, A]`                |
-| IO.fromOption                           | `Option[A]`                                                                             | `IO[Unit, A]`                     |
-| IO.none                                 |                                                                                         | `IO[Nothing, Option[Nothing]]`    |
-| IO.some                                 | `A`                                                                                     | `IO[Nothing, Option[A]`           |
-| IO.fromTry                              | `Try[A]`                                                                                | `IO[Throwable, A]`                |
-| IO.bracket                              | `IO[E, A]` (acquire) <br> `A => IO[Nothing, Unit]` (release) <br> `A => IO[E, B]` (use) | `IO[E, B]`                        |
-| IO.when                                 | `Boolean` <br> `IO[E, _]`                                                               | `IO[E, Unit]`                     |
-| IO.whenM                                | `IO[E, Boolean]` <br> `IO[E, _]`                                                        | `IO[E, Unit]`                     |
-| IO.whenCase                             | `A` <br> `PartialFunction[A, IO[E, _]]`                                                 | `IO[E, Unit]`                     |
-| IO.whenCaseM                            | `IO[E, A]` <br> `PartialFunction[A, IO[E, _]]`                                          | `IO[E, Unit]`                     |
+| Name                                     | Given                                                                                   | To                                |
+| ---------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
+| ZIO.succeed                              | `A`                                                                                     | `IO[Nothing, A]`                  |
+| ZIO.fail                                 | `E`                                                                                     | `IO[E, Nothing]`                  |
+| ZIO.die                                  | `Throwable`                                                                             | `IO[Nothing, Nothing]`            |
+| ZIO.attempt                              | `=> A`                                                                                  | `IO[Throwable, A]`                |
+| ZIO.succeed                              | `=> A`                                                                                  | `IO[Nothing, A]`                  |
+| ZIO.async                                | `((IO[E, A] => Unit) => Unit)`                                                          | `IO[E, A]`                        |
+| ZIO.fromEither                           | `Either[E, A]`                                                                          | `IO[E, A]`                        |
+| ZIO.left                                 | `A`                                                                                     | `IO[Nothing, Either[A, Nothing]]` |
+| ZIO.right                                | `A`                                                                                     | `IO[Nothing, Either[Nothing, A]]` |
+| ZIO.fromFiber                            | `Fiber[E, A]`                                                                           | `IO[E, A]`                        |
+| ZIO.fromFuture                           | `ExecutionContext => Future[A]`                                                         | `IO[Throwable, A]`                |
+| ZIO.fromOption                           | `Option[A]`                                                                             | `IO[Option[Nothing], A]`                     |
+| ZIO.none                                 |                                                                                         | `IO[Nothing, Option[Nothing]]`    |
+| ZIO.some                                 | `A`                                                                                     | `IO[Nothing, Option[A]]`          |
+| ZIO.fromTry                              | `Try[A]`                                                                                | `IO[Throwable, A]`                |
+| ZIO.acquireReleaseWith                   | `IO[E, A]` (acquire) <br> `A => IO[Nothing, Any]` (release) <br> `A => IO[E, B]` (use)  | `IO[E, B]`                        |
+| ZIO.when                                 | `Boolean` <br> `IO[E, A]`                                                               | `IO[E, Option[A]]`                      
+| ZIO.whenZIO                              | `IO[E, Boolean]` <br> `IO[E, A]`                                                        | `IO[E, Option[A]]`                     |
+| ZIO.whenCase                             | `A` <br> `PartialFunction[A, IO[E, B]]`                                                 | `IO[E, Option[B]]`                     |
+| ZIO.whenCaseZIO                          | `IO[E, A]` <br> `PartialFunction[A, IO[E, B]]`                                          | `IO[E, Option[B]]`                     |
 
 ## Transforming effects
 
@@ -47,7 +47,7 @@
 | as                 | `IO[E, A]`               | `B`                                     | `IO[E, B]`               |
 | orElseFail         | `IO[E, A]`               | `E2`                                    | `IO[E2, A]`              |
 | unit               | `IO[E, A]`               |                                         | `IO[E, Unit]`            |
-| `>>=` (flatmap)    | `IO[E, A]`               | `A => IO[E1, B]`                        | `IO[E1, B]`              |
+| flatmap            | `IO[E, A]`               | `A => IO[E1, B]`                        | `IO[E1, B]`              |
 | flatten            | `IO[E, IO[E1, A]]`       |                                         | `IO[E1, A]`              |
 | mapBoth (bimap)    | `IO[E, A]`               | `E => E2`<br>`A => B`                   | `IO[E2, B]`              |
 | mapError           | `IO[E, A]`               | `E => E2`                               | `IO[E2, A]`              |
@@ -56,10 +56,9 @@
 | sandbox            | `IO[E, A]`               |                                         | `IO[Cause[E], A]`        |
 | flip               | `IO[E, A]`               |                                         | `IO[A, E]`               |
 | tap                | `IO[E, A]`               | `A => IO[E1, _]`                        | `IO[E1, A]`              |
-| tapBoth            | `IO[E, A]`               | `A => IO[E1, _]`<br>`E => IO[E1, _]`    | `IO[E1, A]`              |
+| tapBoth            | `IO[E, A]`               | `E => IO[E1, _]`<br>`A => IO[E1, _]`    | `IO[E1, A]`              |
 | tapError           | `IO[E, A]`               | `E => IO[E1, _]`                        | `IO[E1, A]`              |
 | absolve            | `IO[E, Either[E, A]]`    |                                         | `IO[E, A]`               |
-| get                | `IO[Nothing, Option[A]]` |                                         | `IO[Unit, A]`            |
 | head               | `IO[E, List[A]]`         |                                         | `IO[Option[E], A]`       |
 | toFuture           | `IO[Throwable, A]`       |                                         | `IO[Nothing, Future[A]]` |
 | filterOrDie        | `IO[E, A]`               | `A => Boolean`<br>`Throwable`           | `IO[E, A]`               |
