@@ -43,7 +43,7 @@
 
 ## Transforming effects
 
-Below `E1 >: E`, but `E2` can be any error type.
+Below `E1 >: E`, but `E2` can be any error type. Also `A1 >: A`. This is also true in the sections below.
 
 | Name               | From                     | Given                                   | To                         |
 | ------------------ | ------------------------ | --------------------------------------- | -------------------------- |
