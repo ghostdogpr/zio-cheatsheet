@@ -28,7 +28,7 @@
 | ZIO.async                                | `((IO[E, A] => Unit) => Unit)` <br> FiberId                                             | `IO[E, A]`                        |
 | ZIO.fromEither                           | `Either[E, A]`                                                                          | `IO[E, A]`                        |
 | ZIO.left                                 | `A`                                                                                     | `IO[Nothing, Either[A, Nothing]]` |
-| ZIO.right                                | `A`                                                                                     | `IO[Nothing, Either[Nothing, A]]` |
+| ZIO.right                                | `B`                                                                                     | `IO[Nothing, Either[Nothing, B]]` |
 | ZIO.fromFiber                            | `Fiber[E, A]`                                                                           | `IO[E, A]`                        |
 | ZIO.fromFuture                           | `ExecutionContext => Future[A]`                                                         | `IO[Throwable, A]`                |
 | ZIO.fromOption                           | `Option[A]`                                                                             | `IO[Option[Nothing], A]`                     |
