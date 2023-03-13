@@ -22,8 +22,8 @@
 | --------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
 | ZIO.succeed                             | `=> A`                                                                                  | `IO[Nothing, A]`                  |
 | ZIO.fail                                | `=> E`                                                                                  | `IO[E, Nothing]`                  |
-| ZIO.interrupt                           |                                                                                         | `IO[Nothing, Nothing]`    |
-| ZIO.die                                 | `Throwable`                                                                             | `IO[Nothing, Nothing]`    |
+| ZIO.interrupt                           |                                                                                         | `IO[Nothing, Nothing]`          |
+| ZIO.die                                 | `Throwable`                                                                             | `IO[Nothing, Nothing]`          |
 | ZIO.attempt                             | `=> A`                                                                                  | `IO[Throwable, A]`                |
 | ZIO.async                               | `((IO[E, A] => Unit) => Unit)` <br> FiberId                                             | `IO[E, A]`                        |
 | ZIO.fromEither                          | `Either[E, A]`                                                                          | `IO[E, A]`                        |
