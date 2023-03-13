@@ -63,7 +63,7 @@ Below `E1` is a super-type of `E`, but `E2` can be any error type.
 | tapBoth            | `IO[E, A]`               | `E => IO[E1, _]`<br>`A => IO[E1, _]`    | `IO[E1, A]`                |
 | tapError           | `IO[E, A]`               | `E => IO[E1, _]`                        | `IO[E1, A]`                |
 | absolve            | `IO[E, Either[E, A]]`    |                                         | `IO[E, A]`                 |
-| some               | `IO[Nothing, Option[A]]` |                                         | `IO[Option[E], A]`         |
+| some               | `IO[E, Option[A]]`       |                                         | `IO[Option[E], A]`         |
 | head               | `IO[E, List[A]]`         |                                         | `IO[Option[E], A]`         |
 | toFuture           | `IO[Throwable, A]`       |                                         | `IO[Nothing, Future[A]]`   |
 | filterOrDie        | `IO[E, A]`               | `A => Boolean`<br>`Throwable`           | `IO[E, A]`                 |
