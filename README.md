@@ -43,7 +43,7 @@
 
 ## Transforming effects
 
-Below `E1 >: E`, but `E2` can be any error type. Also `A1 >: A`. This is also true in the sections below.
+Here `E1 >: E`, but `E2` can be any error type. Also `A1 >: A`. This is also true in the sections below.
 
 | Name               | From                     | Given                                   | To                         |
 | ------------------ | ------------------------ | --------------------------------------- | -------------------------- |
@@ -97,8 +97,8 @@ Below `E1 >: E`, but `E2` can be any error type. Also `A1 >: A`. This is also tr
 | ----------------- | ------------------ | ----------------------------------------------- | --------------------------- |
 | orDie             | `IO[Throwable, A]` |                                                 | `IO[Nothing, A]`            |
 | orDieWith         | `IO[E, A]`         | `E => Throwable`                                | `IO[Nothing, A]`            |
-| refineOrDie       | `IO[Throwable, A]` | `PartialFunction[Throwable, E1]`                | `IO[E1, A]`                 |
-| refineOrDieWith   | `IO[E, A]`         | `PartialFunction[E, E1]`<br> `E => Throwable`   | `IO[E1, A]`                 |
+| refineOrDie       | `IO[Throwable, A]` | `PartialFunction[Throwable, E2]`                | `IO[E2, A]`                 |
+| refineOrDieWith   | `IO[E, A]`         | `PartialFunction[E, E2]`<br> `E => Throwable`   | `IO[E2, A]`                 |
 
 
 ## Combining effects + parallelism
