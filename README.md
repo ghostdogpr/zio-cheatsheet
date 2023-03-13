@@ -2,7 +2,6 @@
 
 - This is based on [ZIO](https://github.com/zio/zio) 2.0.X (in particular 2.0.10).
 - For simplicity, ZIO environment has been omitted but all the functions also work with the form `ZIO[R, E, A]`.
-- The functions below are deterministic, total and pure.
 - For many functions there are several (unmentioned) related functions that are conceptually similar but differ in some detail.
 - Important ZIO types other than the functional effect type `ZIO[R, E, A]` have been left out. For example: `ZStream[R, E, A]`, `ZLayer[RIn, E, ROut]`, `Fiber[E, A]` and `Ref[A]`.
 
@@ -22,6 +21,7 @@
 | ---------------------------------------- | --------------------------------------------------------------------------------------- | --------------------------------- |
 | ZIO.succeed                              | `=> A`                                                                                  | `IO[Nothing, A]`                  |
 | ZIO.fail                                 | `=> E`                                                                                  | `IO[E, Nothing]`                  |
+| ZIO.interrupt                            |                                                                                         | `IO[Nothing, Nothing]`                  |
 | ZIO.die                                  | `Throwable`                                                                             | `IO[Nothing, Nothing]`            |
 | ZIO.attempt                              | `=> A`                                                                                  | `IO[Throwable, A]`                |
 | ZIO.async                                | `((IO[E, A] => Unit) => Unit)`                                                          | `IO[E, A]`                        |
