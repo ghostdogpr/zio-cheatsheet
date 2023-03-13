@@ -43,6 +43,8 @@
 
 ## Transforming effects
 
+Below `E1` is a super-type of `E`, but `E2` can be any error type.
+
 | Name               | From                     | Given                                   | To                         |
 | ------------------ | ------------------------ | --------------------------------------- | -------------------------- |
 | map                | `IO[E, A]`               | `A => B`                                | `IO[E, B]`                 |
