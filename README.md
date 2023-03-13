@@ -43,7 +43,7 @@
 
 ## Transforming effects
 
-Below `E1` is a super-type of `E`, but `E2` can be any error type.
+Below `E1 >: E`, but `E2` can be any error type.
 
 | Name               | From                     | Given                                   | To                         |
 | ------------------ | ------------------------ | --------------------------------------- | -------------------------- |
@@ -68,8 +68,8 @@ Below `E1` is a super-type of `E`, but `E2` can be any error type.
 | toFuture           | `IO[Throwable, A]`       |                                         | `IO[Nothing, Future[A]]`   |
 | filterOrDie        | `IO[E, A]`               | `A => Boolean`<br>`Throwable`           | `IO[E, A]`                 |
 | filterOrDieMessage | `IO[E, A]`               | `A => Boolean`<br>`String`              | `IO[E, A]`                 |
-| filterOrElse       | `IO[E, A]`               | `A => Boolean`<br>`A => ZIO[R2, E2, B]` | `ZIO[R2, E2, B]`           |
-| filterOrFail       | `IO[E, A]`               | `A => Boolean`<br>`E2`                  | `IO[E2, A]`                |
+| filterOrElse       | `IO[E, A]`               | `A => Boolean`<br>`A => IO[E, A]`       | `IO[E, A]`                 |
+| filterOrFail       | `IO[E, A]`               | `A => Boolean`<br>`E`                   | `IO[E, A]`                 |
 
 
 ## Recover from errors
